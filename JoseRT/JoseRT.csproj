@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="Jwt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="compact\Base64Url.cs" />
+    <Compile Include="compact\Compact.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
