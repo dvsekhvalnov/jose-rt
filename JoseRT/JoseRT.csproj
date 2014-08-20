@@ -35,16 +35,21 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
+    <Folder Include="util\" />
   </ItemGroup>
   <ItemGroup>
     <TargetPlatform Include="WindowsPhoneApp, Version=8.1" />
     <TargetPlatform Include="Windows, Version=8.1" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="JwsAlgorithm.cs" />
+    <Compile Include="jws\HmacUsingSha.cs" />
+    <Compile Include="jws\IJwsSigner.cs" />
+    <Compile Include="jws\Plaintext.cs" />
     <Compile Include="Jwt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="compact\Base64Url.cs" />
-    <Compile Include="compact\Compact.cs" />
+    <Compile Include="serialization\Base64Url.cs" />
+    <Compile Include="serialization\Compact.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

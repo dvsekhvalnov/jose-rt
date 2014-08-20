@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices.WindowsRuntime;
 
-namespace JoseRT
+namespace JoseRT.Serialization
 {
     public sealed class Base64Url
     {

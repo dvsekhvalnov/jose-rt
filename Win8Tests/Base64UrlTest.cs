@@ -1,4 +1,4 @@
-﻿using JoseRT;
+﻿using JoseRT.Serialization;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
 namespace Win8Tests

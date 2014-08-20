@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Runtime.InteropServices.WindowsRuntime;
+﻿using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 
-namespace JoseRT.Compact
+namespace JoseRT.Serialization
 {
     public sealed class Compact
     {
@@ -39,6 +38,11 @@ namespace JoseRT.Compact
     {
         private byte[] _bytes;
 
+        public static Part New(string data)
+        {
+            return new Part(Encoding.UTF8.GetBytes(data));
+        }
+
         public Part([ReadOnlyArray] byte[] bytes)
         {
             _bytes = bytes;
@@ -47,6 +51,11 @@ namespace JoseRT.Compact
         public byte[] Bytes
         {
             get { return _bytes; }
+        }
+
+        public string Utf8
+        {
+            get { return Encoding.UTF8.GetString(_bytes, 0, _bytes.Length); }
         }
     }
 }
