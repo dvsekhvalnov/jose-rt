@@ -4,6 +4,7 @@ using System.Text;
 using Windows.Data.Json;
 using JoseRT.Jws;
 using JoseRT.Serialization;
+using JoseRT.util;
 
 namespace JoseRT
 {
@@ -26,11 +27,9 @@ namespace JoseRT
 
         public static string Decode(string token, object key)
         {
-//            Ensure.IsNotEmpty(token, "Incoming token expected to be in compact serialization form, not empty, whitespace or null.");
+            Ensure.IsNotEmpty(token, "JoseRT.Jwt.Decode(): token expected to be in compact serialization form, not empty, whitespace or null.");
 
             Part[] parts = Compact.Parse(token);
-
-            string json;
 
             if (parts.Length == 5) //encrypted JWT
             {
@@ -42,8 +41,7 @@ namespace JoseRT
                 return Verify(parts, key);
             }
 
-            throw new Exception(string.Format("JoseRT.Jwt.Decode(): expected token with 3 or 5 parts, but got:{0}.",
-                parts.Length));
+            throw new Exception(string.Format("JoseRT.Jwt.Decode(): expected token with 3 or 5 parts, but got:{0}.", parts.Length));
         }
 
         private static string Decrypt(Part[] parts, object key)
@@ -74,7 +72,7 @@ namespace JoseRT
 
         public static string Encode(string payload, string signingAlgorithm, object key)
         {
-            //Ensure.IsNotEmpty(payload, "Payload expected to be not empty, whitespace or null.");
+            Ensure.IsNotEmpty(payload, "JoseRT.Jwt.Encode(): payload expected to be not empty, whitespace or null.");
 
             if (!signers.ContainsKey(signingAlgorithm))
                 throw new Exception(string.Format("JoseRT.Jwt.Encode(): unknown or unsupported algorithm:{0}.", signingAlgorithm));

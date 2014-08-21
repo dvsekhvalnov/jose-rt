@@ -2,6 +2,7 @@
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
 using Windows.Storage.Streams;
+using JoseRT.util;
 
 namespace JoseRT.Jws
 {
@@ -16,7 +17,7 @@ namespace JoseRT.Jws
 
         public byte[] Sign([ReadOnlyArray] byte[] securedInput, object key)
         {
-            byte[] sharedKey = (byte[])key;
+            var sharedKey = Ensure.Type<byte[]>(key, "HmacUsingSha expects key to be byte[] array.");
 
             CryptographicKey hmacKey = AlgProvider.CreateKey(CryptographicBuffer.CreateFromByteArray(sharedKey));            
 
@@ -31,7 +32,7 @@ namespace JoseRT.Jws
 
         public bool Verify([ReadOnlyArray] byte[] signature, [ReadOnlyArray] byte[] securedInput, object key)
         {
-            byte[] sharedKey = (byte[]) key;
+            var sharedKey = Ensure.Type<byte[]>(key, "HmacUsingSha expects key to be byte[] array.");
 
             IBuffer msg=CryptographicBuffer.CreateFromByteArray(securedInput);
             IBuffer hmac=CryptographicBuffer.CreateFromByteArray(signature);
