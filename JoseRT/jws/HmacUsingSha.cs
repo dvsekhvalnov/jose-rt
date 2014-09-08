@@ -1,8 +1,10 @@
-﻿using System.Runtime.InteropServices.WindowsRuntime;
+﻿using System;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
 using Windows.Storage.Streams;
 using JoseRT.util;
+using Buffer = JoseRT.util.Buffer;
 
 namespace JoseRT.Jws
 {
@@ -19,15 +21,9 @@ namespace JoseRT.Jws
         {
             var sharedKey = Ensure.Type<byte[]>(key, "HmacUsingSha expects key to be byte[] array.");
 
-            CryptographicKey hmacKey = AlgProvider.CreateKey(CryptographicBuffer.CreateFromByteArray(sharedKey));            
+            CryptographicKey hmacKey = AlgProvider.CreateKey(CryptographicBuffer.CreateFromByteArray(sharedKey));
 
-            IBuffer sig = CryptographicEngine.Sign(hmacKey, CryptographicBuffer.CreateFromByteArray(securedInput));
-
-            byte[] signature;
-
-            CryptographicBuffer.CopyToByteArray(sig, out signature);
-
-            return signature;
+            return Buffer.ToBytes(CryptographicEngine.Sign(hmacKey, CryptographicBuffer.CreateFromByteArray(securedInput)));
         }
 
         public bool Verify([ReadOnlyArray] byte[] signature, [ReadOnlyArray] byte[] securedInput, object key)

@@ -18,6 +18,9 @@ namespace JoseRT
             Register(new HmacUsingSha(256));
             Register(new HmacUsingSha(384));
             Register(new HmacUsingSha(512));
+            Register(new RsaUsingSha(256));
+            Register(new RsaUsingSha(384));
+            Register(new RsaUsingSha(512));
         }
 
         public static void Register(IJwsSigner signer)
