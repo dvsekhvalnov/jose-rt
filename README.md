@@ -73,4 +73,32 @@ Decoding json web tokens is fully symmetric to creating signed or encrypted toke
 
 
 ### Obtaining keys
+`Windows.Security.Cryptography` allows to import keys from bunch of different formats, but do not support commonly used PEM encoded formats out of box. 
+To simplify integration and keys exchange between WinRT and other platforms, `JoseRT` provides set of helpers to import PEM encoded keys.
+
+#### RSA keys
+`JoseRT.Rsa.PublicKey.Load(string)` imports `CryptographicKey` from PEM encoded public key formats
+1. PKCS#1 RSA Public Key
+
+	-----BEGIN RSA PUBLIC KEY-----
+	MIIBCgKCAQEAqFZv0pea/jn5Mo4qEUmS
+	tuhlulso8n1inXbEotd/zTrQp9K0RK0hf7t0K4BjKVhaiqIam4tVVQvkmYeBeYr1
+	MmnO/0N97dMBz/7fmvyv0hgHaBdQ5mR5u3LTlHo8tjRE7+GzZmGs6jMcyj7HbXob
+	DPQJZpqNy6JjliDVXxW8nWJDetxGBlqmTj1E1fr2RCsZLreDOPSDIedG1upz9Rra
+	ShsIDzeefOcKibcAaKeeVI3rkAU8/mOauLSXv37hlk0h6sStJb3qZQXyOUkVkjXI
+	khvNu/ve0v7LiLT4G/OxYGzpOQcCnimKdojzNP6GtVDaMPh+QkSJE32UCos9R3wI
+	2QIDAQAB
+	-----END RSA PUBLIC KEY-----
+
+2. X509 Public Subject key info
+
+	-----BEGIN PUBLIC KEY-----
+	MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqFZv0pea/jn5Mo4qEUmS
+	tuhlulso8n1inXbEotd/zTrQp9K0RK0hf7t0K4BjKVhaiqIam4tVVQvkmYeBeYr1
+	MmnO/0N97dMBz/7fmvyv0hgHaBdQ5mR5u3LTlHo8tjRE7+GzZmGs6jMcyj7HbXob
+	DPQJZpqNy6JjliDVXxW8nWJDetxGBlqmTj1E1fr2RCsZLreDOPSDIedG1upz9Rra
+	ShsIDzeefOcKibcAaKeeVI3rkAU8/mOauLSXv37hlk0h6sStJb3qZQXyOUkVkjXI
+	khvNu/ve0v7LiLT4G/OxYGzpOQcCnimKdojzNP6GtVDaMPh+QkSJE32UCos9R3wI
+	2QIDAQAB
+	-----END PUBLIC KEY-----
 
