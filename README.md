@@ -80,7 +80,7 @@ To simplify integration and keys exchange between WinRT and other platforms, `Jo
 `JoseRT.Rsa.PublicKey.Load(string)` imports `CryptographicKey` from PEM encoded public key formats
 1. PKCS#1 RSA Public Key
 
-	-----BEGIN RSA PUBLIC KEY-----
+	`-----BEGIN RSA PUBLIC KEY-----
 	MIIBCgKCAQEAqFZv0pea/jn5Mo4qEUmS
 	tuhlulso8n1inXbEotd/zTrQp9K0RK0hf7t0K4BjKVhaiqIam4tVVQvkmYeBeYr1
 	MmnO/0N97dMBz/7fmvyv0hgHaBdQ5mR5u3LTlHo8tjRE7+GzZmGs6jMcyj7HbXob
@@ -88,11 +88,11 @@ To simplify integration and keys exchange between WinRT and other platforms, `Jo
 	ShsIDzeefOcKibcAaKeeVI3rkAU8/mOauLSXv37hlk0h6sStJb3qZQXyOUkVkjXI
 	khvNu/ve0v7LiLT4G/OxYGzpOQcCnimKdojzNP6GtVDaMPh+QkSJE32UCos9R3wI
 	2QIDAQAB
-	-----END RSA PUBLIC KEY-----
+	-----END RSA PUBLIC KEY-----`
 
 2. X509 Public Subject key info
 
-	-----BEGIN PUBLIC KEY-----
+	`-----BEGIN PUBLIC KEY-----
 	MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqFZv0pea/jn5Mo4qEUmS
 	tuhlulso8n1inXbEotd/zTrQp9K0RK0hf7t0K4BjKVhaiqIam4tVVQvkmYeBeYr1
 	MmnO/0N97dMBz/7fmvyv0hgHaBdQ5mR5u3LTlHo8tjRE7+GzZmGs6jMcyj7HbXob
@@ -100,5 +100,5 @@ To simplify integration and keys exchange between WinRT and other platforms, `Jo
 	ShsIDzeefOcKibcAaKeeVI3rkAU8/mOauLSXv37hlk0h6sStJb3qZQXyOUkVkjXI
 	khvNu/ve0v7LiLT4G/OxYGzpOQcCnimKdojzNP6GtVDaMPh+QkSJE32UCos9R3wI
 	2QIDAQAB
-	-----END PUBLIC KEY-----
+	-----END PUBLIC KEY----`-
 
