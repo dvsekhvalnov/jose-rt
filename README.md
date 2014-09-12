@@ -108,7 +108,7 @@ Can be obtained from certificate via `openssl x509 -inform PEM -in certificate.c
 
 `JoseRT.Rsa.PrivateKey.Load(string)` imports `CryptographicKey` from PEM encoded private key formats
 
-##### PKCS#1 RSA Private Key
+##### PKCS#1 RSA Private Key without password protection
 Can be obtained from .p12 via `openssl pkcs12 -in keys.p12 -nocerts -out privateKey.pem` and then `openssl.exe rsa -in privateKey.pem -out privateKey.pem` to remove
 password protection.
 
@@ -128,7 +128,7 @@ password protection.
 	mWm4YlaLpVYVLUYIvQXD31vZGpKqbMBHuP/xHkm5d/AZ
 	-----END RSA PRIVATE KEY-----
 
-##### PKCS#8 Raw RSA Private Key without password protection
+##### PKCS#8 Raw RSA Private Key
 Can be converted from PKCS#1 private key via `openssl pkcs8 -topk8 -inform PEM -outform PEM -in privateKey.pem -out privateKey.key -nocrypt`
 
 	-----BEGIN PRIVATE KEY-----
