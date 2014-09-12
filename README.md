@@ -33,7 +33,7 @@ HS256, HS384, HS512 signatures require `byte[]` array key of corresponding lengt
 
 #### RS256, RS384 and RS512 family
 RS256, RS384, RS512 signatures require `CryptographicKey` private key of corresponding length. `JoseRT` provides convenient helpers to load RSA keys from commonly
-used PEM encoded formats. See [Obtaining keys](### Obtaining keys) section for details.
+used PEM encoded formats. See [Obtaining keys](#obtaining-keys) section for details.
 
 	
 	string payload = @"{""hello"" : ""world""}";
