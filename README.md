@@ -79,7 +79,7 @@ To simplify integration and keys exchange between WinRT and other platforms, `Jo
 #### RSA keys
 `JoseRT.Rsa.PublicKey.Load(string)` imports `CryptographicKey` from PEM encoded public key formats
 
-1. PKCS#1 RSA Public Key
+*. PKCS#1 RSA Public Key
 
 	-----BEGIN RSA PUBLIC KEY-----
 	MIIBCgKCAQEAqFZv0pea/jn5Mo4qEUmS
@@ -91,7 +91,8 @@ To simplify integration and keys exchange between WinRT and other platforms, `Jo
 	2QIDAQAB
 	-----END RSA PUBLIC KEY-----
 
-2. X509 Public Subject key info . Can be obtained from certificate via `openssl x509 -inform PEM -in certificate.cer -outform PEM -pubkey -noout > public.key`
+*. X509 Public Subject key info
+Can be obtained from certificate via `openssl x509 -inform PEM -in certificate.cer -outform PEM -pubkey -noout > public.key`
 
 	-----BEGIN PUBLIC KEY-----
 	MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqFZv0pea/jn5Mo4qEUmS
