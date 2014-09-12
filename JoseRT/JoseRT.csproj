@@ -49,10 +49,11 @@
     <Compile Include="Jwt.cs" />
     <Compile Include="keys\pem\Pem.cs" />
     <Compile Include="keys\rsa\PrivateKey.cs" />
-    <Compile Include="keys\rsa\PublicKey.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="keys\rsa\PublicKey.cs" />
     <Compile Include="serialization\Base64Url.cs" />
     <Compile Include="serialization\Compact.cs" />
+    <Compile Include="util\Arrays.cs" />
     <Compile Include="util\Buffer.cs" />
     <Compile Include="util\Ensure.cs" />
   </ItemGroup>

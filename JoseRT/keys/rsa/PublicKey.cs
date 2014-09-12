@@ -1,6 +1,7 @@
-﻿using Windows.Security.Cryptography;
+﻿using System;
+using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
-using Windows.Storage.Streams;
+using JoseRT.keys.pem;
 
 namespace JoseRT.Rsa
 {
@@ -8,11 +9,32 @@ namespace JoseRT.Rsa
     {
         public static CryptographicKey Load(string pubKeyContent)
         {
-            AsymmetricKeyAlgorithmProvider alg = AsymmetricKeyAlgorithmProvider.OpenAlgorithm(AsymmetricAlgorithmNames.RsaPkcs1);
+            CryptographicPublicKeyBlobType blobType;
 
-            IBuffer keyBlob = CryptographicBuffer.DecodeFromBase64String(pubKeyContent);
+            var block=new Pem(pubKeyContent);
 
-            return alg.ImportPublicKey(keyBlob, CryptographicPublicKeyBlobType.X509SubjectPublicKeyInfo);
+            if (block.Type == null) //not pem encoded
+            {
+                //trying to guess blob type
+                blobType = pubKeyContent.StartsWith("MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A")
+                    ? CryptographicPublicKeyBlobType.X509SubjectPublicKeyInfo
+                    : CryptographicPublicKeyBlobType.Pkcs1RsaPublicKey;
+            }
+            else if ("PUBLIC KEY".Equals(block.Type))
+            {
+                blobType=CryptographicPublicKeyBlobType.X509SubjectPublicKeyInfo;   
+            }
+            else if ("RSA PUBLIC KEY".Equals(block.Type))
+            {
+                blobType = CryptographicPublicKeyBlobType.Pkcs1RsaPublicKey;
+            }
+            else
+            {
+                throw new Exception(string.Format("PublicKey.Load(): Unsupported type in PEM block '{0}'",block.Type));
+            }
+
+            return AsymmetricKeyAlgorithmProvider.OpenAlgorithm(AsymmetricAlgorithmNames.RsaPkcs1)
+                                                 .ImportPublicKey(CryptographicBuffer.CreateFromByteArray(block.Decoded), blobType);
         }
     }
 }
