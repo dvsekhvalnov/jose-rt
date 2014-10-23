@@ -45,6 +45,7 @@
     <Compile Include="jws\HmacUsingSha.cs" />
     <Compile Include="jws\IJwsSigner.cs" />
     <Compile Include="jws\Plaintext.cs" />
+    <Compile Include="jws\RsaPssUsingSha.cs" />
     <Compile Include="jws\RsaUsingSha.cs" />
     <Compile Include="Jwt.cs" />
     <Compile Include="keys\pem\Pem.cs" />

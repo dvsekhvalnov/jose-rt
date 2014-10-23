@@ -21,6 +21,9 @@ namespace JoseRT
             Register(new RsaUsingSha(256));
             Register(new RsaUsingSha(384));
             Register(new RsaUsingSha(512));
+            Register(new RsaPssUsingSha(256));
+            Register(new RsaPssUsingSha(384));
+            Register(new RsaPssUsingSha(512));
         }
 
         public static void Register(IJwsSigner signer)

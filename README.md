@@ -6,6 +6,12 @@
 
 **Signing**
 - HMAC signatures with HS256, HS384 and HS512.
+- RSASSA-PKCS1-V1_5 signatures with RS256, RS384 and RS512.
+- RSASSA-PSS signatures with PS256, PS384 and PS512<sup>\*</sup>
+
+##### Notes:
+\* It appears that Microsoft implementation of AsymmetricAlgorithmNames.RsaSignPssSha256, AsymmetricAlgorithmNames.RsaSignPssSha384 and AsymmetricAlgorithmNames.RsaSignPssSha512
+is broken. At least produced signatures can't be validated on other platforms. **jose-rt** provides support for PS256, PS384 and PS512 but most likely produced tokens can't be decoded correctly with other JOSE implementations.
 
 ## Installation
 ### NuGet 

@@ -21,6 +21,7 @@
         {
             get { return "HS512"; }
         }
+
         public static string RS256
         {
             get { return "RS256"; }
@@ -34,6 +35,21 @@
         public static string RS512
         {
             get { return "RS512"; }
+        }
+
+        public static string PS256
+        {
+            get { return "PS256"; }
+        }
+
+        public static string PS384
+        {
+            get { return "PS384"; }
+        }
+
+        public static string PS512
+        {
+            get { return "PS512"; }
         }
     }
 }
