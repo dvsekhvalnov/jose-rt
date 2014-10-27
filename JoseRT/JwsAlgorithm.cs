@@ -51,5 +51,20 @@
         {
             get { return "PS512"; }
         }
+
+        public static string ES256
+        {
+            get { return "ES256"; }
+        }
+
+        public static string ES384
+        {
+            get { return "ES384"; }
+        }
+
+        public static string ES512
+        {
+            get { return "ES512"; }
+        }
     }
 }

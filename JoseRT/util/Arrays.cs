@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using JoseRT.Serialization;
+
 
 namespace JoseRT.util
 {
@@ -25,5 +27,23 @@ namespace JoseRT.util
 
             return builder.ToString();
         }
+
+        internal static byte[] Concat(params byte[][] arrays)
+        {
+            byte[] result = new byte[arrays.Sum(a => (a == null) ? 0 : a.Length)];
+            int offset = 0;
+
+            foreach (byte[] array in arrays)
+            {
+                if (array == null) continue;
+
+                System.Buffer.BlockCopy(array, 0, result, offset, array.Length);
+                offset += array.Length;
+            }
+
+            return result;
+        }
+
+
     }
 }

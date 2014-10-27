@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace JoseRT.keys.pem
+namespace JoseRT.Keys.pem
 {
     public sealed class Pem
     {

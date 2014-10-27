@@ -1,7 +1,7 @@
 ﻿using System;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
-using JoseRT.keys.pem;
+using JoseRT.Keys.pem;
 
 namespace JoseRT.Rsa
 {

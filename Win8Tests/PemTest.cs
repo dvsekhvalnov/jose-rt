@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using JoseRT.keys.pem;
+using JoseRT.Keys.pem;
 using JoseRT.util;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 

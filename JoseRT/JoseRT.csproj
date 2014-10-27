@@ -42,12 +42,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="JwsAlgorithm.cs" />
+    <Compile Include="jws\EcdsaUsingSha.cs" />
     <Compile Include="jws\HmacUsingSha.cs" />
     <Compile Include="jws\IJwsSigner.cs" />
     <Compile Include="jws\Plaintext.cs" />
     <Compile Include="jws\RsaPssUsingSha.cs" />
     <Compile Include="jws\RsaUsingSha.cs" />
     <Compile Include="Jwt.cs" />
+    <Compile Include="keys\ecc\PrivateKey.cs" />
+    <Compile Include="keys\ecc\PublicKey.cs" />
     <Compile Include="keys\pem\Pem.cs" />
     <Compile Include="keys\rsa\PrivateKey.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
