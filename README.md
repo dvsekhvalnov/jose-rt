@@ -24,25 +24,29 @@ Grab source and compile yourself.
 ## Usage
 ### Creating Plaintext (unprotected) Tokens
 
+```C#
 	string payload = @"{""hello"" : ""world""}";
 
 	string token = JoseRT.Jwt.Encode(payload, JwsAlgorithm.None, null);
+```
 
 ### Creating signed Tokens
 #### HS256, HS384 and HS512 family
 HS256, HS384, HS512 signatures require `byte[]` array key of corresponding length
 
+```C#
     var secretKey = new byte[]{164,60,194,0,161,189,41,38,130,89,141,164,45,170,159,209,69,137,243,216,191,131,47,250,32,107,231,117,37,158,225,234};
 
     string payload = @"{""hello"" : ""world""}";
 
     string token = JoseRT.Jwt.Encode(payload, JwsAlgorithm.HS256, secretKey);
+```
 
-#### RS256, RS384 and RS512 family
+#### RS256, RS384, RS512 and PS256, PS384, PS512 families
 RS256, RS384, RS512 signatures require `CryptographicKey` private key of corresponding length. `JoseRT` provides convenient helpers to load RSA keys from commonly
 used PEM encoded formats. See [Obtaining keys](#obtaining-keys) section for details.
 
-	
+```C#	
 	string payload = @"{""hello"" : ""world""}";
 
 	string privateKey=
@@ -65,12 +69,13 @@ used PEM encoded formats. See [Obtaining keys](#obtaining-keys) section for deta
 
 	
 	string token = JoseRT.Jwt.Encode(payload, JwsAlgorithm.RS512, JoseRT.Rsa.PrivateKey.Load(privateKey));
-
+```
 
 #### ES256, ES384 and ES512  family
 ES256, ES384, ES512 ECDSA signatures requires `CryptographicKey` private elliptic curve key of corresponding length. 
 `JoseRT` provides convenient helpers to use raw key material (x,y) and d. See [Obtaining keys](#obtaining-keys) section for details.
 
+```C#
     string json = @"{""hello"": ""world""}";
 
     byte[] x = { 4, 114, 29, 223, 58, 3, 191, 170, 67, 128, 229, 33, 242, 178, 157, 150, 133, 25, 209, 139, 166, 69, 55, 26, 84, 48, 169, 165, 67, 232, 98, 9 };
@@ -80,7 +85,7 @@ ES256, ES384, ES512 ECDSA signatures requires `CryptographicKey` private ellipti
     var privateKey= JoseRT.Ecc.PrivateKey.New(x, y, d);    
 
     string token = JoseRT.Jwt.Encode(json, JwsAlgorithm.ES256, privateKey);
-
+```
 
 ### Verifying and Decoding Tokens
 Decoding json web tokens is fully symmetric to creating signed or encrypted tokens:
@@ -93,6 +98,40 @@ Decoding json web tokens is fully symmetric to creating signed or encrypted toke
     byte[] secretKey = new byte[]{164,60,194,0,161,189,41,38,130,89,141,164,45,170,159,209,69,137,243,216,191,131,47,250,32,107,231,117,37,158,225,234};
 
     string json = JoseRT.Jwt.Decode(token, secretKey);
+```
+
+**RS256, RS384, RS512 and PS256, PS384, PS512** signatures expecting `CryptographicKey` public key of corresponding length. `JoseRT` provides convenient helpers to load RSA keys from commonly
+used PEM encoded formats. See [Obtaining keys](#obtaining-keys) section for details.
+
+```C#
+    string token = "eyJhbGciOiJSUzM4NCIsImN0eSI6InRleHRcL3BsYWluIn0.eyJoZWxsbyI6ICJ3b3JsZCJ9.cOPca7YEOxnXVdIi7cJqfgRMmDFPCrZG1M7WCJ23U57rAWvCTaQgEFdLjs7aeRAPY5Su_MVWV7YixcawKKYOGVG9eMmjdGiKHVoRcfjwVywGIb-nuD1IBzGesrQe7mFQrcWKtYD9FurjCY1WuI2FzGPp5YhW5Zf4TwmBvOKz6j2D1vOFfGsogzAyH4lqaMpkHpUAXddQxzu8rmFhZ54Rg4T-jMGVlsdrlAAlGA-fdRZ-V3F2PJjHQYUcyS6n1ULcy6ljEOgT5fY-_8DDLLpI8jAIdIhcHUAynuwvvnDr9bJ4xIy4olFRqcUQIHbcb5-WDeWul_cSGzTJdxDZsnDuvg";
+
+    var publicKey= 
+    @"-----BEGIN PUBLIC KEY-----
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqFZv0pea/jn5Mo4qEUmS
+    tuhlulso8n1inXbEotd/zTrQp9K0RK0hf7t0K4BjKVhaiqIam4tVVQvkmYeBeYr1
+    MmnO/0N97dMBz/7fmvyv0hgHaBdQ5mR5u3LTlHo8tjRE7+GzZmGs6jMcyj7HbXob
+    DPQJZpqNy6JjliDVXxW8nWJDetxGBlqmTj1E1fr2RCsZLreDOPSDIedG1upz9Rra
+    ShsIDzeefOcKibcAaKeeVI3rkAU8/mOauLSXv37hlk0h6sStJb3qZQXyOUkVkjXI
+    khvNu/ve0v7LiLT4G/OxYGzpOQcCnimKdojzNP6GtVDaMPh+QkSJE32UCos9R3wI
+    2QIDAQAB
+    -----END PUBLIC KEY-----"; 
+
+    string json = Jwt.Decode(token, JoseRT.Rsa.PublicKey.Load(publicKey));
+```
+
+**ES256, ES384, ES512** signatures expecting `CryptographicKey` public elliptic curve key of corresponding length. 
+`JoseRT` provides convenient helpers to use raw key material (x,y). See [Obtaining keys](#obtaining-keys) section for details.
+
+```C#
+    string token = "eyJhbGciOiJFUzM4NCIsImN0eSI6InRleHRcL3BsYWluIn0.eyJoZWxsbyI6ICJ3b3JsZCJ9.jVTHd9T0fIQDJLNvAq3LPpgj_npXtWb64FfEK8Sm65Nr9q2goUWASrM9jv3h-71UrP4cBpM3on3yN--o6B-Tl6bscVUfpm1swPp94f7XD9VYLEjGMjQOaozr13iBZJCY";
+
+    byte[] x = { 4, 114, 29, 223, 58, 3, 191, 170, 67, 128, 229, 33, 242, 178, 157, 150, 133, 25, 209, 139, 166, 69, 55, 26, 84, 48, 169, 165, 67, 232, 98, 9 };
+    byte[] y = { 131, 116, 8, 14, 22, 150, 18, 75, 24, 181, 159, 78, 90, 51, 71, 159, 214, 186, 250, 47, 207, 246, 142, 127, 54, 183, 72, 72, 253, 21, 88, 53 };
+
+    var publicKey=JoseRT.Ecc.PublicKey.New(x, y);
+
+    string json = Jwt.Decode(token, publicKey);
 ```
 
 
@@ -177,17 +216,23 @@ determined by size of provided material. Supported are NIST P-256, P-384 and P-5
 ##### Private Key
 Can be constructed by calling `JoseRT.Ecc.PrivateKey.New(x, y, d)`
 
+```C#
     byte[] x = { 0, 248, 73, 203, 53, 184, 34, 69, 111, 217, 230, 255, 108, 212, 241, 229, 95, 239, 93, 131, 100, 37, 86, 152, 87, 98, 170, 43, 25, 35, 80, 137, 62, 112, 197, 113, 138, 116, 114, 55, 165, 128, 8, 139, 148, 237, 109, 121, 40, 205, 3, 61, 127, 28, 195, 58, 43, 228, 224, 228, 82, 224, 219, 148, 204, 96 };
     byte[] y = { 0, 60, 71, 97, 112, 106, 35, 121, 80, 182, 20, 167, 143, 8, 246, 108, 234, 160, 193, 10, 3, 148, 45, 11, 58, 177, 190, 172, 26, 178, 188, 240, 91, 25, 67, 79, 64, 241, 203, 65, 223, 218, 12, 227, 82, 178, 66, 160, 19, 194, 217, 172, 61, 250, 23, 78, 218, 130, 160, 105, 216, 208, 235, 124, 46, 32 };
     byte[] d = { 0, 222, 129, 9, 133, 207, 123, 116, 176, 83, 95, 169, 29, 121, 160, 137, 22, 21, 176, 59, 203, 129, 62, 111, 19, 78, 14, 174, 20, 211, 56, 160, 83, 42, 74, 219, 208, 39, 231, 33, 84, 114, 71, 106, 109, 161, 116, 243, 166, 146, 252, 231, 137, 228, 99, 149, 152, 123, 201, 157, 155, 131, 181, 106, 179, 112 };
 
     var privateEccKey=JoseRT.Ecc.PrivateKey.New(x, y, d);
+```
 
 ##### Public Key
 Can be constructed by calling `JoseRT.Ecc.PublicKey.New(x, y)`
 
+```C#
     byte[] x = { 0, 248, 73, 203, 53, 184, 34, 69, 111, 217, 230, 255, 108, 212, 241, 229, 95, 239, 93, 131, 100, 37, 86, 152, 87, 98, 170, 43, 25, 35, 80, 137, 62, 112, 197, 113, 138, 116, 114, 55, 165, 128, 8, 139, 148, 237, 109, 121, 40, 205, 3, 61, 127, 28, 195, 58, 43, 228, 224, 228, 82, 224, 219, 148, 204, 96 };
     byte[] y = { 0, 60, 71, 97, 112, 106, 35, 121, 80, 182, 20, 167, 143, 8, 246, 108, 234, 160, 193, 10, 3, 148, 45, 11, 58, 177, 190, 172, 26, 178, 188, 240, 91, 25, 67, 79, 64, 241, 203, 65, 223, 218, 12, 227, 82, 178, 66, 160, 19, 194, 217, 172, 61, 250, 23, 78, 218, 130, 160, 105, 216, 208, 235, 124, 46, 32 };
 
     var publicEccKey=JoseRT.Ecc.PublicKey.New(x, y, d);
+```
 
+### More examples
+Checkout `Win8Tests\CompatibilityTestSuite.cs` for more samples.
