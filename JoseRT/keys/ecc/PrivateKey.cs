@@ -2,9 +2,10 @@
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
+using JoseRT.Keys.pem;
 using JoseRT.util;
 
-namespace JoseRT.Keys.Ecc
+namespace JoseRT.Ecc
 {
     public sealed class PrivateKey
     {

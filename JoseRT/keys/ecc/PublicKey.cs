@@ -4,7 +4,7 @@ using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
 using JoseRT.util;
 
-namespace JoseRT.Keys.Ecc
+namespace JoseRT.Ecc
 {
     public sealed class PublicKey
     {
