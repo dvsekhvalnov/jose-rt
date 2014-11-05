@@ -51,6 +51,10 @@ khvNu/ve0v7LiLT4G/OxYGzpOQcCnimKdojzNP6GtVDaMPh+QkSJE32UCos9R3wI
 2QIDAQAB
 -----END PUBLIC KEY-----";
 
+        private byte[] aes256Key = { 164, 60, 194, 0, 161, 189, 41, 38, 130, 89, 141, 164, 45, 170, 159, 209, 69, 137, 243, 216, 191, 131, 47, 250, 32, 107, 231, 117, 37, 158, 225, 234 };
+        private byte[] aes384Key = { 185, 30, 233, 199, 32, 98, 209, 3, 114, 250, 30, 124, 207, 173, 227, 152, 243, 202, 238, 165, 227, 199, 202, 230, 218, 185, 216, 113, 13, 53, 40, 100, 100, 20, 59, 67, 88, 97, 191, 3, 161, 37, 147, 223, 149, 237, 190, 156 };
+        private byte[] aes512Key = { 238, 71, 183, 66, 57, 207, 194, 93, 82, 80, 80, 152, 92, 242, 84, 206, 194, 46, 67, 43, 231, 118, 208, 168, 156, 212, 33, 105, 27, 45, 60, 160, 232, 63, 61, 235, 68, 171, 206, 35, 152, 11, 142, 121, 174, 165, 140, 11, 172, 212, 13, 101, 13, 190, 82, 244, 109, 113, 70, 150, 251, 82, 215, 226 };
+
         [TestMethod]
         public void DecodePlaintext()
         {
@@ -413,6 +417,120 @@ khvNu/ve0v7LiLT4G/OxYGzpOQcCnimKdojzNP6GtVDaMPh+QkSJE32UCos9R3wI
             Assert.AreEqual(parts[2].Length, 176, "signature size");
 
             Assert.AreEqual(JoseRT.Jwt.Decode(token, Ecc521Public()), json, "Make sure we are consistent with ourselves");
+        }
+
+        [TestMethod]
+        public void Decrypt_DIR_A128CBC_HS256()
+        {
+            //given
+            string token = "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..3lClLoerWhxIc811QXDLbg.iFd5MNk2eWDlW3hbq7vTFLPJlC0Od_MSyWGakEn5kfYbbPk7BM_SxUMptwcvDnZ5uBKwwPAYOsHIm5IjZ79LKZul9ZnOtJONRvxWLeS9WZiX4CghOLZL7dLypKn-mB22xsmSUbtizMuNSdgJwUCxEmms7vYOpL0Che-0_YrOu3NmBCLBiZzdWVtSSvYw6Ltzbch4OAaX2ye_IIemJoU1VnrdW0y-AjPgnAUA-GY7CAKJ70leS1LyjTW8H_ecB4sDCkLpxNOUsWZs3DN0vxxSQw.bxrZkcOeBgFAo3t0585ZdQ";
+
+            //when
+            string json = JoseRT.Jwt.Decode(token, aes256Key);
+
+            //then
+            Assert.AreEqual(json, @"{""exp"":1392553211,""sub"":""alice"",""nbf"":1392552611,""aud"":[""https:\/\/app-one.com"",""https:\/\/app-two.com""],""iss"":""https:\/\/openid.net"",""jti"":""586dd129-a29f-49c8-9de7-454af1155e27"",""iat"":1392552611}");
+        }
+
+        [TestMethod]
+        public void Decrypt_DIR_A192CBC_HS384()
+        {
+            //given
+            string token = "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTkyQ0JDLUhTMzg0In0..fX42Nn8ABHClA0UfbpkX_g.ClZzxQIzg40GpTETaLejGNhCN0mqSM1BNCIU5NldeF-hGS7_u_5uFsJoWK8BLCoWRtQ3cWIeaHgOa5njCftEK1AoHvechgNCQgme-fuF3f2v5DOphU-tveYzN-uvrUthS0LIrAYrwQW0c0DKcJZ-9vQmC__EzesZgUHiDB8SnoEROPTvJcsBKI4zhFT7wOgqnFS7P7_BQZj_UnbJkzTAiE5MURBBpCYR-OS3zn--QftbdGVJ2CWmwH3HuDO9-IE2IQ5cKYHnzSwu1vyME_SpZA.qd8ZGKzmOzzPhFV-Po8KgJ5jZb5xUQtU";
+
+            //when
+            string json = JoseRT.Jwt.Decode(token, aes384Key);
+
+            //then
+            Assert.AreEqual(json, @"{""exp"":1392553372,""sub"":""alice"",""nbf"":1392552772,""aud"":[""https:\/\/app-one.com"",""https:\/\/app-two.com""],""iss"":""https:\/\/openid.net"",""jti"":""f81648e9-e9b3-4e37-a655-fcfacace0ef0"",""iat"":1392552772}");
+        }
+
+        [TestMethod]
+        public void Decrypt_DIR_A256CBC_HS512()
+        {
+            //given
+            string token = "eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2Q0JDLUhTNTEyIn0..ZD93XtD7TOa2WMbqSuaY9g.1J5BAuxNRMWaw43s7hR82gqLiaZOHBmfD3_B9k4I2VIDKzS9oEF_NS2o7UIBa6t_fWHU7vDm9lNAN4rqq7OvtCBHJpFk31dcruQHxwYKn5xNefG7YP-o6QtpyNioNWJpaSD5VRcRO5ufRrw2bu4_nOth00yJU5jjN3O3n9f-0ewrN2UXDJIbZM-NiSuEDEgOVHImQXoOtOQd0BuaDx6xTJydw_rW5-_wtiOH2k-3YGlibfOWNu51kApGarRsAhhqKIPetYf5Mgmpv1bkUo6HJw.nVpOmg3Sxri0rh6nQXaIx5X0fBtCt7Kscg6c66NugHY";
+
+            //when
+            string json = JoseRT.Jwt.Decode(token, aes512Key);
+
+            //then
+            Assert.AreEqual(json, @"{""exp"":1392553617,""sub"":""alice"",""nbf"":1392553017,""aud"":[""https:\/\/app-one.com"",""https:\/\/app-two.com""],""iss"":""https:\/\/openid.net"",""jti"":""029ea059-b8aa-44eb-a5ad-59458de678f8"",""iat"":1392553017}");
+        }
+
+        [TestMethod]
+        public void Encrypt_DIR_A128CBC_HS256()
+        {
+            //given
+            string json =
+                @"{""hello"":""world""}";
+
+            //when
+            string token = JoseRT.Jwt.Encode(json, JwaAlgorithms.DIR, JweAlgorithms.A128CBC_HS256, aes256Key);
+
+            //then
+            Debug.WriteLine("DIR_A128CBC_HS256 = {0}", token);
+
+            string[] parts = token.Split('.');
+
+            Assert.AreEqual(parts.Length, 5, "Make sure 5 parts");
+            Assert.AreEqual(parts[0], "eyJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiYWxnIjoiZGlyIn0", "Header is non-encrypted and static text");
+            Assert.AreEqual(parts[1].Length, 0, "CEK size");
+            Assert.AreEqual(parts[2].Length, 22, "IV size");
+            Assert.AreEqual(parts[3].Length, 43, "cipher text size");
+            Assert.AreEqual(parts[4].Length, 22, "auth tag size");
+
+            Assert.AreEqual(JoseRT.Jwt.Decode(token, aes256Key), json, "Make sure we are consistent with ourselfs");
+        }
+
+        [TestMethod]
+        public void Encrypt_DIR_A192CBC_HS384()
+        {
+            //given
+            string json =
+                @"{""hello"":""world""}";
+
+            //when
+            string token = JoseRT.Jwt.Encode(json, JwaAlgorithms.DIR, JweAlgorithms.A192CBC_HS384, aes384Key);
+
+            //then
+            Debug.WriteLine("DIR_A192CBC_HS384 = {0}", token);
+
+            string[] parts = token.Split('.');
+
+            Assert.AreEqual(parts.Length, 5, "Make sure 5 parts");
+            Assert.AreEqual(parts[0], "eyJlbmMiOiJBMTkyQ0JDLUhTMzg0IiwiYWxnIjoiZGlyIn0", "Header is non-encrypted and static text");
+            Assert.AreEqual(parts[1].Length, 0, "CEK size");
+            Assert.AreEqual(parts[2].Length, 22, "IV size");
+            Assert.AreEqual(parts[3].Length, 43, "cipher text size");
+            Assert.AreEqual(parts[4].Length, 32, "auth tag size");
+
+            Assert.AreEqual(JoseRT.Jwt.Decode(token, aes384Key), json, "Make sure we are consistent with ourselfs");
+        }
+
+        [TestMethod]
+        public void Encrypt_DIR_A256CBC_HS512()
+        {
+            //given
+            string json =
+                @"{""hello"":""world""}";
+
+            //when
+            string token = JoseRT.Jwt.Encode(json, JwaAlgorithms.DIR, JweAlgorithms.A256CBC_HS512, aes512Key);
+
+            //then
+            Debug.WriteLine("DIR_A256CBC_HS512 = {0}", token);
+
+            string[] parts = token.Split('.');
+
+            Assert.AreEqual(parts.Length, 5, "Make sure 5 parts");
+            Assert.AreEqual(parts[0], "eyJlbmMiOiJBMjU2Q0JDLUhTNTEyIiwiYWxnIjoiZGlyIn0", "Header is non-encrypted and static text");
+            Assert.AreEqual(parts[1].Length, 0, "CEK size");
+            Assert.AreEqual(parts[2].Length, 22, "IV size");
+            Assert.AreEqual(parts[3].Length, 43, "cipher text size");
+            Assert.AreEqual(parts[4].Length, 43, "auth tag size");
+
+            Assert.AreEqual(JoseRT.Jwt.Decode(token, aes512Key), json, "Make sure we are consistent with ourselfs");
         }
 
 

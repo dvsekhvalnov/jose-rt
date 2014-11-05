@@ -44,6 +44,59 @@ namespace JoseRT.util
             return result;
         }
 
+        public static byte[] FirstHalf([ReadOnlyArray] byte[] arr)
+        {
+            Ensure.Divisible(arr.Length, 2, "Arrays.FirstHalf(): expects even number of element in array.");
 
+            int halfIndex = arr.Length / 2;
+
+            var result = new byte[halfIndex];
+
+            System.Buffer.BlockCopy(arr, 0, result, 0, halfIndex);
+
+            return result;
+        }
+
+        public static byte[] SecondHalf([ReadOnlyArray] byte[] arr)
+        {
+            Ensure.Divisible(arr.Length, 2, "Arrays.SecondHalf(): expects even number of element in array.");
+
+            int halfIndex = arr.Length / 2;
+
+            var result = new byte[halfIndex];
+
+            System.Buffer.BlockCopy(arr, halfIndex, result, 0, halfIndex);
+
+            return result;
+        }
+
+        public static byte[] LongToBytes(long lValue)
+        {
+            ulong _value = (ulong)lValue;
+
+            return BitConverter.IsLittleEndian
+                ? new[] { (byte)((_value >> 56) & 0xFF), (byte)((_value >> 48) & 0xFF), (byte)((_value >> 40) & 0xFF), (byte)((_value >> 32) & 0xFF), (byte)((_value >> 24) & 0xFF), (byte)((_value >> 16) & 0xFF), (byte)((_value >> 8) & 0xFF), (byte)(_value & 0xFF) }
+                : new[] { (byte)(_value & 0xFF), (byte)((_value >> 8) & 0xFF), (byte)((_value >> 16) & 0xFF), (byte)((_value >> 24) & 0xFF), (byte)((_value >> 32) & 0xFF), (byte)((_value >> 40) & 0xFF), (byte)((_value >> 48) & 0xFF), (byte)((_value >> 56) & 0xFF) };
+        }
+
+        public static bool ConstantTimeEquals([ReadOnlyArray] byte[] expected, [ReadOnlyArray] byte[] actual)
+        {
+            if (expected == actual)
+                return true;
+
+            if (expected == null || actual == null)
+                return false;
+
+            if (expected.Length != actual.Length)
+                return false;
+
+            bool equals = true;
+
+            for (int i = 0; i < expected.Length; i++)
+                if (expected[i] != actual[i])
+                    equals = false;
+
+            return equals;
+        }
     }
 }

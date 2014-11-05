@@ -10,6 +10,9 @@
 - RSASSA-PSS signatures with PS256, PS384 and PS512<sup>\*</sup>
 - ECDSA signatures with ES256, ES384 and ES512.
 
+**Encryption**
+- Direct symmetric key encryption with pre-shared key A128CBC-HS256, A192CBC-HS384, A256CBC-HS512
+
 ##### Notes:
 \* It appears that Microsoft implementation of AsymmetricAlgorithmNames.RsaSignPssSha256, AsymmetricAlgorithmNames.RsaSignPssSha384 and AsymmetricAlgorithmNames.RsaSignPssSha512
 is broken. At least produced signatures can't be validated on other platforms. **jose-rt** provides support for PS256, PS384 and PS512 but most likely produced tokens can't be decoded correctly with other JOSE implementations.
@@ -87,10 +90,22 @@ var privateKey= JoseRT.Ecc.PrivateKey.New(x, y, d);
 string token = JoseRT.Jwt.Encode(json, JwsAlgorithm.ES256, privateKey);
 ```
 
+### Creating encrypted Tokens
+#### DIR direct pre-shared symmetric key family of algorithms 
+Direct key management with pre-shared symmetric keys requires `byte[]` array key of corresponding length
+
+```C#
+string json = @"{""hello"":""world""}";
+
+byte[] sharedKey = new byte[] { 185, 30, 233, 199, 32, 98, 209, 3, 114, 250, 30, 124, 207, 173, 227, 152, 243, 202, 238, 165, 227, 199, 202, 230, 218, 185, 216, 113, 13, 53, 40, 100, 100, 20, 59, 67, 88, 97, 191, 3, 161, 37, 147, 223, 149, 237, 190, 156 };
+
+string token = JoseRT.Jwt.Encode(json, JwaAlgorithms.DIR, JweAlgorithms.A192CBC_HS384, sharedKey);
+```
+
 ### Verifying and Decoding Tokens
 Decoding json web tokens is fully symmetric to creating signed or encrypted tokens:
 
-**HS256, HS384, HS512** signatures expecting `byte[]` array key
+**HS256, HS384, HS512** signatures and **DIR** key management algorithms expecting `byte[]` array key
 
 ```C#
 string token = "eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..Fmz3PLVfv-ySl4IJ.LMZpXMDoBIll5yuEs81Bws2-iUUaBSpucJPL-GtDKXkPhFpJmES2T136Vd8xzvp-3JW-fvpRZtlhluqGHjywPctol71Zuz9uFQjuejIU4axA_XiAy-BadbRUm1-25FRT30WtrrxKltSkulmIS5N-Nsi_zmCz5xicB1ZnzneRXGaXY4B444_IHxGBIS_wdurPAN0OEGw4xIi2DAD1Ikc99a90L7rUZfbHNg_iTBr-OshZqDbR6C5KhmMgk5KqDJEN8Ik-Yw.Jbk8ZmO901fqECYVPKOAzg";

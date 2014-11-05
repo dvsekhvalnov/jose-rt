@@ -41,9 +41,15 @@
     <TargetPlatform Include="Windows, Version=8.1" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="JwaAlgorithms.cs" />
+    <Compile Include="jwa\DirectKeyManagement.cs" />
+    <Compile Include="jwa\IJwaAlgorithm.cs" />
+    <Compile Include="JweAlgorithms.cs" />
+    <Compile Include="jwe\AesCbcHmacEncryptor.cs" />
     <Compile Include="JwsAlgorithm.cs" />
     <Compile Include="jws\EcdsaUsingSha.cs" />
     <Compile Include="jws\HmacUsingSha.cs" />
+    <Compile Include="jwe\IJweEncryptor.cs" />
     <Compile Include="jws\IJwsSigner.cs" />
     <Compile Include="jws\Plaintext.cs" />
     <Compile Include="jws\RsaPssUsingSha.cs" />
