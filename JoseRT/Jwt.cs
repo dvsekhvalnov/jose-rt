@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using Windows.Data.Json;
-using JoseRT.jwa;
+using JoseRT.Jwa;
 using JoseRT.Jwe;
 using JoseRT.Jws;
 using JoseRT.Serialization;
-using JoseRT.util;
+using JoseRT.Util;
 
 namespace JoseRT
 {
@@ -129,7 +129,7 @@ namespace JoseRT
             Ensure.IsNotEmpty(payload, "JoseRT.Jwt.Encode(): payload expected to be not empty, whitespace or null.");
 
             if (!signers.ContainsKey(signingAlgorithm))
-                throw new Exception(string.Format("JoseRT.Jwt.Encode(): unknown or unsupported algorithm:{0}.", signingAlgorithm));
+                throw new Exception(string.Format("JoseRT.Jwt.Encode(): unknown or unsupported signing algorithm:{0}.", signingAlgorithm));
 
             IJwsSigner signer = signers[signingAlgorithm];
 
@@ -159,10 +159,10 @@ namespace JoseRT
             Ensure.IsNotEmpty(payload, "JoseRT.Jwt.Encode(): payload expected to be not empty, whitespace or null.");
 
             if (!encryptors.ContainsKey(encryption))
-                throw new Exception(string.Format("JoseRT.Jwt.Encode(): unknown or unsupported algorithm:{0}.", encryption));
+                throw new Exception(string.Format("JoseRT.Jwt.Encode(): unknown or unsupported encryption algorithm:{0}.", encryption));
 
             if (!algorithms.ContainsKey(keyManagementAlg))
-                throw new Exception(string.Format("JoseRT.Jwt.Encode(): unknown or unsupported algorithm:{0}.", keyManagementAlg));
+                throw new Exception(string.Format("JoseRT.Jwt.Encode(): unknown or unsupported key management algorithm:{0}.", keyManagementAlg));
 
             IJweEncryptor encryptor = encryptors[encryption];
             IJwaAlgorithm algorithm = algorithms[keyManagementAlg];

@@ -2,7 +2,7 @@
 using Windows.Security.Cryptography.Core;
 using JoseRT.Rsa;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using Buffer = JoseRT.util.Buffer;
+using Buffer = JoseRT.Util.Buffer;
 
 namespace Win8Tests
 {

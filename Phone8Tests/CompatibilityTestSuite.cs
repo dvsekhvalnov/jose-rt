@@ -29,7 +29,7 @@ namespace Phone8Tests
             string payload = @"{""hello"" : ""world""}";
 
             //when
-            var test = JoseRT.Jwt.Encode(payload, JwsAlgorithm.None, null);
+            var test = JoseRT.Jwt.Encode(payload, JwsAlgorithms.None, null);
 
             Debug.WriteLine("test = {0}", test);
 
@@ -85,7 +85,7 @@ namespace Phone8Tests
             string payload = @"{""hello"": ""world""}";
 
             //when
-            var test = JoseRT.Jwt.Encode(payload, JwsAlgorithm.HS256, shaKey);
+            var test = JoseRT.Jwt.Encode(payload, JwsAlgorithms.HS256, shaKey);
 
             Debug.WriteLine("HS256 = {0}", test);
 
@@ -100,7 +100,7 @@ namespace Phone8Tests
             string payload = @"{""hello"": ""world""}";
 
             //when
-            var test = JoseRT.Jwt.Encode(payload, JwsAlgorithm.HS384, shaKey);
+            var test = JoseRT.Jwt.Encode(payload, JwsAlgorithms.HS384, shaKey);
 
             Debug.WriteLine("HS384 = {0}", test);
 
@@ -115,7 +115,7 @@ namespace Phone8Tests
             string payload = @"{""hello"": ""world""}";
 
             //when
-            var test = JoseRT.Jwt.Encode(payload, JwsAlgorithm.HS512, shaKey);
+            var test = JoseRT.Jwt.Encode(payload, JwsAlgorithms.HS512, shaKey);
 
             Debug.WriteLine("HS512 = {0}", test);
 

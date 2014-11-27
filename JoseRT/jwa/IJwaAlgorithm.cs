@@ -2,7 +2,7 @@
 using Windows.Data.Json;
 using JoseRT.Serialization;
 
-namespace JoseRT.jwa
+namespace JoseRT.Jwa
 {
     public interface IJwaAlgorithm
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using JoseRT.Keys.pem;
-using JoseRT.util;
+using JoseRT.Util;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
 namespace Win8Tests

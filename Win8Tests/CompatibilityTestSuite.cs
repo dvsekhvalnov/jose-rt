@@ -77,7 +77,7 @@ khvNu/ve0v7LiLT4G/OxYGzpOQcCnimKdojzNP6GtVDaMPh+QkSJE32UCos9R3wI
             string payload = @"{""hello"" : ""world""}";
 
             //when
-            string test = Jwt.Encode(payload, JwsAlgorithm.None, null);
+            string test = Jwt.Encode(payload, JwsAlgorithms.None, null);
 
             Debug.WriteLine("test = {0}", test);
 
@@ -131,7 +131,7 @@ khvNu/ve0v7LiLT4G/OxYGzpOQcCnimKdojzNP6GtVDaMPh+QkSJE32UCos9R3wI
             string payload = @"{""hello"": ""world""}";
 
             //when
-            string test = Jwt.Encode(payload, JwsAlgorithm.HS256, shaKey);
+            string test = Jwt.Encode(payload, JwsAlgorithms.HS256, shaKey);
 
             //then
             Assert.AreEqual("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJoZWxsbyI6ICJ3b3JsZCJ9.KmLWPfxC3JGopWImDgYg9IUpgAi8gwimviUfr6eJyFI", test);
@@ -144,7 +144,7 @@ khvNu/ve0v7LiLT4G/OxYGzpOQcCnimKdojzNP6GtVDaMPh+QkSJE32UCos9R3wI
             string payload = @"{""hello"": ""world""}";
 
             //when
-            string test = Jwt.Encode(payload, JwsAlgorithm.HS384, shaKey);
+            string test = Jwt.Encode(payload, JwsAlgorithms.HS384, shaKey);
 
             //then
             Assert.AreEqual("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJoZWxsbyI6ICJ3b3JsZCJ9.Be1KYCRGFbv0uQwelaRj0a5SYDdbk_sYsXkfrbRI6TmYpuWBga_RsiU2TyyyjoXR",test);
@@ -157,7 +157,7 @@ khvNu/ve0v7LiLT4G/OxYGzpOQcCnimKdojzNP6GtVDaMPh+QkSJE32UCos9R3wI
             string payload = @"{""hello"": ""world""}";
 
             //when
-            string test = Jwt.Encode(payload, JwsAlgorithm.HS512, shaKey);
+            string test = Jwt.Encode(payload, JwsAlgorithms.HS512, shaKey);
 
             //then
             Assert.AreEqual("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJoZWxsbyI6ICJ3b3JsZCJ9._1m5AmI1xbSfVpykAm9PMXYuQLIdqWuRN8Lz6hFMDq0beqLAaH4Dh2VQNlXzoBG7Nk4vHx2gZgVuhF62cnXcKQ",test);
@@ -209,7 +209,7 @@ khvNu/ve0v7LiLT4G/OxYGzpOQcCnimKdojzNP6GtVDaMPh+QkSJE32UCos9R3wI
             string json = @"{""hello"": ""world""}";
 
             //when
-            string test = Jwt.Encode(json, JwsAlgorithm.RS256, PrivateKey.Load(privateKey));
+            string test = Jwt.Encode(json, JwsAlgorithms.RS256, PrivateKey.Load(privateKey));
 
             //then
             Debug.WriteLine("RS256 = {0}", test);
@@ -225,7 +225,7 @@ khvNu/ve0v7LiLT4G/OxYGzpOQcCnimKdojzNP6GtVDaMPh+QkSJE32UCos9R3wI
             string json = @"{""hello"": ""world""}";
 
             //when
-            string test = Jwt.Encode(json, JwsAlgorithm.RS384, PrivateKey.Load(privateKey));
+            string test = Jwt.Encode(json, JwsAlgorithms.RS384, PrivateKey.Load(privateKey));
 
             //then
             Debug.WriteLine("RS384 = {0}", test);
@@ -241,7 +241,7 @@ khvNu/ve0v7LiLT4G/OxYGzpOQcCnimKdojzNP6GtVDaMPh+QkSJE32UCos9R3wI
             string json = @"{""hello"": ""world""}";
 
             //when
-            string test = Jwt.Encode(json, JwsAlgorithm.RS512, PrivateKey.Load(privateKey));
+            string test = Jwt.Encode(json, JwsAlgorithms.RS512, PrivateKey.Load(privateKey));
 
             //then
             Debug.WriteLine("RS512 = {0}", test);
@@ -360,7 +360,7 @@ khvNu/ve0v7LiLT4G/OxYGzpOQcCnimKdojzNP6GtVDaMPh+QkSJE32UCos9R3wI
             string json = @"{""hello"": ""world""}";
 
             //when
-            string token = JoseRT.Jwt.Encode(json, JwsAlgorithm.ES256, Ecc256Private());
+            string token = JoseRT.Jwt.Encode(json, JwsAlgorithms.ES256, Ecc256Private());
 
             //then
             Debug.WriteLine("ES256 = {0}", token);
@@ -382,7 +382,7 @@ khvNu/ve0v7LiLT4G/OxYGzpOQcCnimKdojzNP6GtVDaMPh+QkSJE32UCos9R3wI
             string json = @"{""hello"": ""world""}";
 
             //when
-            string token = JoseRT.Jwt.Encode(json, JwsAlgorithm.ES384, Ecc384Private());
+            string token = JoseRT.Jwt.Encode(json, JwsAlgorithms.ES384, Ecc384Private());
 
             //then
             Debug.WriteLine("ES384 = {0}", token);
@@ -404,7 +404,7 @@ khvNu/ve0v7LiLT4G/OxYGzpOQcCnimKdojzNP6GtVDaMPh+QkSJE32UCos9R3wI
             string json = @"{""hello"": ""world""}";
 
             //when
-            string token = JoseRT.Jwt.Encode(json, JwsAlgorithm.ES512, Ecc521Private());
+            string token = JoseRT.Jwt.Encode(json, JwsAlgorithms.ES512, Ecc521Private());
 
             //then
             Debug.WriteLine("ES512 = {0}", token);

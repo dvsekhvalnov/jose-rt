@@ -3,8 +3,8 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
 using Windows.Storage.Streams;
-using JoseRT.util;
-using Buffer = JoseRT.util.Buffer;
+using JoseRT.Util;
+using Buffer = JoseRT.Util.Buffer;
 
 namespace JoseRT.Jws
 {
@@ -44,9 +44,9 @@ namespace JoseRT.Jws
             {
                 switch (keySizeBits)
                 {
-                    case 256: return JwsAlgorithm.HS256;
-                    case 384: return JwsAlgorithm.HS384;
-                    default: return JwsAlgorithm.HS512;
+                    case 256: return JwsAlgorithms.HS256;
+                    case 384: return JwsAlgorithms.HS384;
+                    default: return JwsAlgorithms.HS512;
                 }
             }            
         }

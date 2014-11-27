@@ -1,9 +1,9 @@
 ﻿using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Data.Json;
 using JoseRT.Serialization;
-using JoseRT.util;
+using JoseRT.Util;
 
-namespace JoseRT.jwa
+namespace JoseRT.Jwa
 {
     public sealed class DirectKeyManagement : IJwaAlgorithm
     {

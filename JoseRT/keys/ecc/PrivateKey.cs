@@ -3,7 +3,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
 using JoseRT.Keys.pem;
-using JoseRT.util;
+using JoseRT.Util;
 
 namespace JoseRT.Ecc
 {

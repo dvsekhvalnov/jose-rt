@@ -1,7 +1,7 @@
 ﻿using Windows.Security.Cryptography;
 using Windows.Storage.Streams;
 
-namespace JoseRT.util
+namespace JoseRT.Util
 {
     public sealed class Buffer
     {

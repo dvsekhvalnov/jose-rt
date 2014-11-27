@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace JoseRT.util
+namespace JoseRT.Util
 {
     internal class Ensure
     {

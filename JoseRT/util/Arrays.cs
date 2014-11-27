@@ -5,7 +5,7 @@ using System.Text;
 using JoseRT.Serialization;
 
 
-namespace JoseRT.util
+namespace JoseRT.Util
 {
     public sealed class Arrays
     {

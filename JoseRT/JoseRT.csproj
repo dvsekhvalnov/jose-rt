@@ -46,7 +46,7 @@
     <Compile Include="jwa\IJwaAlgorithm.cs" />
     <Compile Include="JweAlgorithms.cs" />
     <Compile Include="jwe\AesCbcHmacEncryptor.cs" />
-    <Compile Include="JwsAlgorithm.cs" />
+    <Compile Include="JwsAlgorithms.cs" />
     <Compile Include="jws\EcdsaUsingSha.cs" />
     <Compile Include="jws\HmacUsingSha.cs" />
     <Compile Include="jwe\IJweEncryptor.cs" />

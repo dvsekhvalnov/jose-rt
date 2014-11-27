@@ -19,7 +19,7 @@ namespace JoseRT.Jws
 
         public string Name
         {
-            get { return JwsAlgorithm.None; }
+            get { return JwsAlgorithms.None; }
         }
     }
 }

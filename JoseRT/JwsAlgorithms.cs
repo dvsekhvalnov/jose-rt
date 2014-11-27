@@ -1,6 +1,6 @@
 ﻿namespace JoseRT
 {
-    public sealed class JwsAlgorithm
+    public sealed class JwsAlgorithms
     {
         public static string None
         {

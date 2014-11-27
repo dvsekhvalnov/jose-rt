@@ -4,8 +4,8 @@ using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
 using Windows.Storage.Streams;
 using JoseRT.Serialization;
-using JoseRT.util;
-using Buffer = JoseRT.util.Buffer;
+using JoseRT.Util;
+using Buffer = JoseRT.Util.Buffer;
 
 namespace JoseRT.Jwe
 {
