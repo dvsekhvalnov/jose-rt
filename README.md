@@ -1,6 +1,10 @@
 # WinRT component implementation of Javascript Object Signing and Encryption (JOSE) and JSON Web Token (JWT)
 
+\* .NET Framework version of library is here [jose-jwt](https://github.com/dvsekhvalnov/jose-jwt)
+
 ##Credits
+
+
 
 ## Supported JWA algorithms
 
@@ -19,7 +23,7 @@ is broken. At least produced signatures can't be validated on other platforms. *
 
 ## Installation
 ### NuGet 
-not yet
+`Install-Package jose-rt`
 
 ### Manual
 Grab source and compile yourself. 
