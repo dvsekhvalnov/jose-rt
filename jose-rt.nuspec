@@ -2,14 +2,14 @@
 <package >
   <metadata>
     <id>jose-rt</id>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <title>Jose RT</title>
     <authors>Dmitry Vsekhvalnov</authors>
     <owners>Dmitry Vsekhvalnov</owners>
     <licenseUrl>https://raw.github.com/dvsekhvalnov/jose-rt/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/dvsekhvalnov/jose-rt</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <releaseNotes></releaseNotes>
+    <releaseNotes>AES GCM encryption</releaseNotes>
     <summary>Javascript Object Signing and Encryption (JOSE) and JSON Web Token (JWT) portable implementation for WinRT (Windows 8.1 and Windows Phone 8.1) platform. Minimallistic. Zero-dependency.</summary>
     <description>Javascript Object Signing and Encryption (JOSE) and JSON Web Token (JWT) portable implementation for WinRT (Windows 8.1 and Windows Phone 8.1) 
 
@@ -25,7 +25,7 @@ Signing:
 
 Encryption:
 
-- Direct symmetric key encryption with pre-shared key A128CBC-HS256, A192CBC-HS384, A256CBC-HS512
+- Direct symmetric key encryption with pre-shared key A128CBC-HS256, A192CBC-HS384, A256CBC-HS512, A128GCM, A192GCM and A256GCM
 
     </description>
     <copyright>Copyright dvsekhvalnov 2014</copyright>

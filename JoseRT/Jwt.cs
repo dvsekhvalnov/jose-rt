@@ -35,6 +35,9 @@ namespace JoseRT
             RegisterJwe(new AesCbcHmacEncryptor(256));
             RegisterJwe(new AesCbcHmacEncryptor(384));
             RegisterJwe(new AesCbcHmacEncryptor(512));
+            RegisterJwe(new AesGcmEncryptor(128));
+            RegisterJwe(new AesGcmEncryptor(192));
+            RegisterJwe(new AesGcmEncryptor(256));
 
             RegisterJwa(new DirectKeyManagement());
         }

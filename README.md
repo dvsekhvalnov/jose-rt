@@ -15,7 +15,7 @@
 - ECDSA signatures with ES256, ES384 and ES512.
 
 **Encryption**
-- Direct symmetric key encryption with pre-shared key A128CBC-HS256, A192CBC-HS384, A256CBC-HS512
+- Direct symmetric key encryption with pre-shared key A128CBC-HS256, A192CBC-HS384, A256CBC-HS512, A128GCM, A192GCM and A256GCM
 
 ##### Notes:
 \* It appears that Microsoft implementation of AsymmetricAlgorithmNames.RsaSignPssSha256, AsymmetricAlgorithmNames.RsaSignPssSha384 and AsymmetricAlgorithmNames.RsaSignPssSha512
