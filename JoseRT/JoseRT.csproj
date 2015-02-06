@@ -44,6 +44,7 @@
     <Compile Include="JwaAlgorithms.cs" />
     <Compile Include="jwa\DirectKeyManagement.cs" />
     <Compile Include="jwa\IJwaAlgorithm.cs" />
+    <Compile Include="jwa\RsaKeyManagement.cs" />
     <Compile Include="JweAlgorithms.cs" />
     <Compile Include="jwe\AesCbcHmacEncryptor.cs" />
     <Compile Include="jwe\AesGcmEncryptor.cs" />

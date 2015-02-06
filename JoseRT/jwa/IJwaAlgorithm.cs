@@ -13,7 +13,7 @@ namespace JoseRT.Jwa
         /// <param name="key">management key (KEK)</param>
         /// <param name="header">JWT headers, dictionary can be mutated as part of call (e.g. keys added, e.t.c)</param>
         /// <returns>2 Parts: [0]=plain CEK, [1]=encrypted CEK</returns>
-        Part[] WrapNewKey(int cekSizeBits, object key, JsonObject header);
+        Part[] WrapNewKey(uint cekSizeBits, object key, JsonObject header);
 
         /// <summary>
         /// Unwraps protected CEK using provided management key
@@ -23,7 +23,7 @@ namespace JoseRT.Jwa
         /// <param name="cekSizeBits">required unwrapped bit CEK size</param>
         /// <param name="header">JWT headers</param>
         /// <returns>unwapped (decrypted) CEK</returns>
-        byte[] Unwrap([ReadOnlyArray] byte[] encryptedCek, object key, int cekSizeBits, JsonObject header);
+        byte[] Unwrap([ReadOnlyArray] byte[] encryptedCek, object key, uint cekSizeBits, JsonObject header);
 
 
         /// <summary>

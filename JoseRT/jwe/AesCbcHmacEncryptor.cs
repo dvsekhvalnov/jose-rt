@@ -11,9 +11,9 @@ namespace JoseRT.Jwe
 {
     public sealed class AesCbcHmacEncryptor : IJweEncryptor
     {
-        private int keySizeBits;
+        private uint keySizeBits;
 
-        public AesCbcHmacEncryptor(int keySizeBits)
+        public AesCbcHmacEncryptor(uint keySizeBits)
         {
             this.keySizeBits = keySizeBits;
         }
@@ -60,7 +60,7 @@ namespace JoseRT.Jwe
                     CryptographicEngine.Decrypt(key, CryptographicBuffer.CreateFromByteArray(cipherText), CryptographicBuffer.CreateFromByteArray(iv)));
         }
 
-        public int KeySize
+        public uint KeySize
         {
             get { return keySizeBits; }
         }

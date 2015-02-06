@@ -10,7 +10,7 @@ namespace JoseRT.Util
                 throw new ArgumentException(string.Format(msg, args));
         }
 
-        public static void BitSize(byte[] array, int expectedSize, string msg, params object[] args)
+        public static void BitSize(byte[] array, uint expectedSize, string msg, params object[] args)
         {
             if (expectedSize != array.Length * 8)
                 throw new ArgumentException(string.Format(msg, args));

@@ -40,6 +40,9 @@ namespace JoseRT
             RegisterJwe(new AesGcmEncryptor(256));
 
             RegisterJwa(new DirectKeyManagement());
+            RegisterJwa(new RsaKeyManagement(false,false));
+            RegisterJwa(new RsaKeyManagement(true,false));
+            RegisterJwa(new RsaKeyManagement(true,true));
         }
 
         public static void RegisterJws(IJwsSigner signer)

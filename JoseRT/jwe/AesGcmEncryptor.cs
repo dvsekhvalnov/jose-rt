@@ -10,9 +10,9 @@ namespace JoseRT.Jwe
 {
     public sealed class AesGcmEncryptor : IJweEncryptor
     {
-        private int keySizeBits;
+        private uint keySizeBits;
 
-        public AesGcmEncryptor(int keySizeBits)
+        public AesGcmEncryptor(uint keySizeBits)
         {
             this.keySizeBits = keySizeBits;
         }
@@ -49,7 +49,7 @@ namespace JoseRT.Jwe
                                                                CryptographicBuffer.CreateFromByteArray(aad)));
         }
 
-        public int KeySize
+        public uint KeySize
         {
             get { return keySizeBits; }
         }

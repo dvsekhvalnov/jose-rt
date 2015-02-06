@@ -19,7 +19,7 @@ namespace JoseRT.Jwe
         /// <summary>
         /// Returns expected key size for given encryption algorithm
         /// </summary>
-        int KeySize { get; }
+        uint KeySize { get; }
 
         /// <summary>
         /// Returns encryption name as defined in spec

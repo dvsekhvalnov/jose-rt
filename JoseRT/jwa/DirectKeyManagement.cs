@@ -7,12 +7,12 @@ namespace JoseRT.Jwa
 {
     public sealed class DirectKeyManagement : IJwaAlgorithm
     {
-        public Part[] WrapNewKey(int cekSizeBits, object key, JsonObject header)
+        public Part[] WrapNewKey(uint cekSizeBits, object key, JsonObject header)
         {
             return new[] {new Part(Ensure.Type<byte[]>(key, "DirectKeyManagement expectes key to be byte[] array.")), new Part(new byte[0])};
         }
 
-        public byte[] Unwrap([ReadOnlyArray] byte[] encryptedCek, object key, int cekSizeBits, JsonObject header)
+        public byte[] Unwrap([ReadOnlyArray] byte[] encryptedCek, object key, uint cekSizeBits, JsonObject header)
         {
             Ensure.IsEmpty(encryptedCek, "DirectKeyManagement expects empty content encryption key");
 
