@@ -110,7 +110,7 @@ string token = JoseRT.Jwt.Encode(json, JwaAlgorithms.DIR, JweAlgorithms.A192CBC_
 ```
 
 #### RSA-\* key management family of algorithms
-RSA-OAEP-256, RSA-OAEP and RSA1_5 key management requires `CryptographicKey` private key of corresponding length. `JoseRT` provides convenient helpers to load RSA keys from commonly
+RSA-OAEP-256, RSA-OAEP and RSA1_5 key management requires `CryptographicKey` public key of corresponding length. `JoseRT` provides convenient helpers to load RSA keys from commonly
 used PEM encoded formats. See [Obtaining keys](#obtaining-keys) section for details.
 
 ```C#
