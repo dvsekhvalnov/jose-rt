@@ -35,5 +35,24 @@ namespace JoseRT.Util
             if (string.IsNullOrWhiteSpace(arg))
                 throw new ArgumentException(string.Format(msg, args));
         }
+
+        public static void SameSize(byte[] left, byte[] right, string msg, params object[] args)
+        {
+            if (left.Length != right.Length)
+                throw new ArgumentException(string.Format(msg, args));
+        }
+
+        public static void MaxValue(int arg, long max, string msg, params object[] args)
+        {
+            if (arg > max)
+                throw new ArgumentException(string.Format(msg, args));
+        }
+
+        public static void MinValue(int arg, int min, string msg, params object[] args)
+        {
+            if (arg < min)
+                throw new ArgumentException(string.Format(msg, args));
+        }
+
     }
 }

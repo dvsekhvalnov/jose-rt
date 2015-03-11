@@ -4,11 +4,17 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using JoseRT.Serialization;
 
-
 namespace JoseRT.Util
 {
     public sealed class Arrays
     {
+        private readonly static byte[] zero = { 0 };
+
+        public static byte[] Zero
+        {
+            get { return zero; }
+        }
+
         public static string Dump([ReadOnlyArray] byte[] arr)
         {
             var builder = new StringBuilder();
@@ -79,6 +85,20 @@ namespace JoseRT.Util
                 : new[] { (byte)(_value & 0xFF), (byte)((_value >> 8) & 0xFF), (byte)((_value >> 16) & 0xFF), (byte)((_value >> 24) & 0xFF), (byte)((_value >> 32) & 0xFF), (byte)((_value >> 40) & 0xFF), (byte)((_value >> 48) & 0xFF), (byte)((_value >> 56) & 0xFF) };
         }
 
+        public static long BytesToLong([ReadOnlyArray] byte[] array)
+        {
+            long msb = BitConverter.IsLittleEndian
+                        ? (long)(array[0] << 24 | array[1] << 16 | array[2] << 8 | array[3]) << 32
+                        : (long)(array[7] << 24 | array[6] << 16 | array[5] << 8 | array[4]) << 32; ;
+
+            long lsb = BitConverter.IsLittleEndian
+                           ? (array[4] << 24 | array[5] << 16 | array[6] << 8 | array[7]) & 0x00000000ffffffff
+                           : (array[3] << 24 | array[2] << 16 | array[1] << 8 | array[0]) & 0x00000000ffffffff;
+
+            return msb | lsb;
+        }
+
+
         public static bool ConstantTimeEquals([ReadOnlyArray] byte[] expected, [ReadOnlyArray] byte[] actual)
         {
             if (expected == actual)
@@ -98,5 +118,72 @@ namespace JoseRT.Util
 
             return equals;
         }
+
+        public static byte[] Xor([ReadOnlyArray] byte[] left, [ReadOnlyArray] byte[] right)
+        {
+            Ensure.SameSize(left, right, "Arrays.Xor(byte[], byte[]) expects both arrays to be same legnth, but was given {0} and {1}", left.Length, right.Length);
+
+            var result = new byte[left.Length];
+
+            for (int i = 0; i < left.Length; i++)
+            {
+                result[i] = (byte)(left[i] ^ right[i]);
+            }
+
+            return result;
+        }
+
+        public static byte[] XorLong([ReadOnlyArray] byte[] left, long right)
+        {
+            Ensure.BitSize(left, 64, "Arrays.Xor(byte[], long) expects array size to be 8 bytes, but was {0}", left.Length);
+
+            long _left = BytesToLong(left);
+            return LongToBytes(_left ^ right);
+        }
+
+        public static byte[] LeftmostBits([ReadOnlyArray] byte[] data, int lengthBits)
+        {
+            Ensure.Divisible(lengthBits, 8, "LeftmostBits() expects length in bits divisible by 8, but was given {0}", lengthBits);
+
+            int byteCount = lengthBits / 8;
+
+            var result = new byte[byteCount];
+
+            System.Buffer.BlockCopy(data, 0, result, 0, byteCount);
+
+            return result;
+        }
+
+        public static byte[] IntToBytes(int arg)
+        {
+            uint _value = (uint)arg;
+
+            return BitConverter.IsLittleEndian
+                ? new[] { (byte)((_value >> 24) & 0xFF), (byte)((_value >> 16) & 0xFF), (byte)((_value >> 8) & 0xFF), (byte)(_value & 0xFF) }
+                : new[] { (byte)(_value & 0xFF), (byte)((_value >> 8) & 0xFF), (byte)((_value >> 16) & 0xFF), (byte)((_value >> 24) & 0xFF) };
+        }
+
+        internal static byte[][] Slice(byte[] array, int count)
+        {
+            Ensure.MinValue(count, 1, "Arrays.Slice() expects count to be above zero, but was {0}", count);
+            Ensure.Divisible(array.Length, count, "Arrays.Slice() expects array length to be divisible by {0}", count);
+
+            int sliceCount = array.Length / count;
+
+            byte[][] result = new byte[sliceCount][];
+
+
+            for (int i = 0; i < sliceCount; i++)
+            {
+                var slice = new byte[count];
+
+                System.Buffer.BlockCopy(array, i * count, slice, 0, count);
+
+                result[i] = slice;
+            }
+
+            return result;
+        }
+
     }
 }

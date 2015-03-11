@@ -43,6 +43,12 @@ namespace JoseRT
             RegisterJwa(new RsaKeyManagement(false,false));
             RegisterJwa(new RsaKeyManagement(true,false));
             RegisterJwa(new RsaKeyManagement(true,true));
+            RegisterJwa(new AesKeyWrapManagement(128));
+            RegisterJwa(new AesKeyWrapManagement(192));
+            RegisterJwa(new AesKeyWrapManagement(256));
+//            RegisterJwa(new Pbse2HmacShaWithAesKWKeyManagement(128));
+//            RegisterJwa(new Pbse2HmacShaWithAesKWKeyManagement(192));
+//            RegisterJwa(new Pbse2HmacShaWithAesKWKeyManagement(256));
         }
 
         public static void RegisterJws(IJwsSigner signer)

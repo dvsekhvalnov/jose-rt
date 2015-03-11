@@ -41,9 +41,13 @@
     <TargetPlatform Include="Windows, Version=8.1" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="crypto\AesKeyWrap.cs" />
+    <Compile Include="crypto\PBKDF2.cs" />
     <Compile Include="JwaAlgorithms.cs" />
+    <Compile Include="jwa\AesKeyWrapManagement.cs" />
     <Compile Include="jwa\DirectKeyManagement.cs" />
     <Compile Include="jwa\IJwaAlgorithm.cs" />
+    <Compile Include="jwa\Pbse2HmacShaWithAesKWKeyManagement.cs" />
     <Compile Include="jwa\RsaKeyManagement.cs" />
     <Compile Include="JweAlgorithms.cs" />
     <Compile Include="jwe\AesCbcHmacEncryptor.cs" />

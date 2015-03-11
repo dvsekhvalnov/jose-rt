@@ -113,10 +113,12 @@
     <SDKReference Include="TestPlatform, Version=11.0" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AesKeyWrapTest.cs" />
     <Compile Include="ArraysTest.cs" />
     <Compile Include="Base64UrlTest.cs" />
     <Compile Include="CompactTest.cs" />
     <Compile Include="CompatibilityTestSuite.cs" />
+    <Compile Include="PBKDF2Test.cs" />
     <Compile Include="PemTest.cs" />
     <Compile Include="PrivateKeyTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
