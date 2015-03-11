@@ -19,6 +19,7 @@
 - RSAES OAEP 256 (using SHA-256 and MGF1 with SHA-256) encryption with A128CBC-HS256, A192CBC-HS384, A256CBC-HS512, A128GCM, A192GCM, A256GCM
 - RSAES OAEP (using SHA-1 and MGF1 with SHA-1) encryption with A128CBC-HS256, A192CBC-HS384, A256CBC-HS512, A128GCM, A192GCM, A256GCM
 - RSAES-PKCS1-V1_5 encryption with A128CBC-HS256, A192CBC-HS384, A256CBC-HS512, A128GCM, A192GCM, A256GCM
+- A128KW, A192KW, A256KW encryption with A128CBC-HS256, A192CBC-HS384, A256CBC-HS512, A128GCM, A192GCM, A256GCM
 
 ##### Notes:
 \* It appears that Microsoft implementation of AsymmetricAlgorithmNames.RsaSignPssSha256, AsymmetricAlgorithmNames.RsaSignPssSha384 and AsymmetricAlgorithmNames.RsaSignPssSha512
@@ -130,10 +131,23 @@ khvNu/ve0v7LiLT4G/OxYGzpOQcCnimKdojzNP6GtVDaMPh+QkSJE32UCos9R3wI
 string token = JoseRT.Jwt.Encode(json, JwaAlgorithms.RSA_OAEP_256, JweAlgorithms.A192GCM, JoseRT.Rsa.PublicKey.Load(publicKey));
 ```
 
+#### AES Key Wrap key management family of algorithms
+AES128KW, AES192KW and AES256KW key management requires `byte[]` array key of corresponding length
+
+  	
+```C#
+string json = @"{""hello"":""world""}";
+
+byte[] aesKey = { 194, 164, 235, 6, 138, 248, 171, 239, 24, 216, 11, 22, 137, 199, 215, 133 };
+
+string token = JoseRT.Jwt.Encode(json, JwaAlgorithms.A128KW, JweAlgorithms.A128CBC_HS256, aesKey);
+```
+
+
 ### Verifying and Decoding Tokens
 Decoding json web tokens is fully symmetric to creating signed or encrypted tokens:
 
-**HS256, HS384, HS512** signatures and **DIR** key management algorithms expecting `byte[]` array key
+**HS256, HS384, HS512** signatures, **A128KW, A192KW, A256KW** and **DIR** key management algorithms expecting `byte[]` array key
 
 ```C#
 string token = "eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..Fmz3PLVfv-ySl4IJ.LMZpXMDoBIll5yuEs81Bws2-iUUaBSpucJPL-GtDKXkPhFpJmES2T136Vd8xzvp-3JW-fvpRZtlhluqGHjywPctol71Zuz9uFQjuejIU4axA_XiAy-BadbRUm1-25FRT30WtrrxKltSkulmIS5N-Nsi_zmCz5xicB1ZnzneRXGaXY4B444_IHxGBIS_wdurPAN0OEGw4xIi2DAD1Ikc99a90L7rUZfbHNg_iTBr-OshZqDbR6C5KhmMgk5KqDJEN8Ik-Yw.Jbk8ZmO901fqECYVPKOAzg";
