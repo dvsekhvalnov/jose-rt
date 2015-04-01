@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using Windows.Security.Cryptography.Core;
 using JoseRT;
 using JoseRT.Rsa;
@@ -64,7 +65,7 @@ khvNu/ve0v7LiLT4G/OxYGzpOQcCnimKdojzNP6GtVDaMPh+QkSJE32UCos9R3wI
             string token = "eyJhbGciOiJub25lIn0.eyJoZWxsbyI6ICJ3b3JsZCJ9.";
 
             //when
-            string test = Jwt.Decode(token, null);
+            string test = Jwt.Decode(token, new byte[]{});
 
             Debug.WriteLine("test = {0}", test);
 

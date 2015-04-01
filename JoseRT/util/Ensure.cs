@@ -4,6 +4,12 @@ namespace JoseRT.Util
 {
     internal class Ensure
     {
+        public static void IsNull(object key, string msg, params object[] args)
+        {
+            if (key != null)
+                throw new ArgumentException(msg);
+        }
+
         public static void Divisible(int arg, int divisor, string msg, params object[] args)
         {
             if (arg % divisor != 0)

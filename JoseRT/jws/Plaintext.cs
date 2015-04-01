@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices.WindowsRuntime;
+using JoseRT.Util;
 
 namespace JoseRT.Jws
 {
@@ -11,10 +12,9 @@ namespace JoseRT.Jws
 
         public bool Verify([ReadOnlyArray] byte[] signature, [ReadOnlyArray] byte[] securedInput, object key)
         {
-            //Ensure.IsNull(key, "Plaintext alg expectes key to be null.");
+            Ensure.IsNull(key, "Plaintext alg expectes key to be null.");
 
             return signature.Length == 0;
-
         }
 
         public string Name
