@@ -20,6 +20,7 @@
 - RSAES OAEP (using SHA-1 and MGF1 with SHA-1) encryption with A128CBC-HS256, A192CBC-HS384, A256CBC-HS512, A128GCM, A192GCM, A256GCM
 - RSAES-PKCS1-V1_5 encryption with A128CBC-HS256, A192CBC-HS384, A256CBC-HS512, A128GCM, A192GCM, A256GCM
 - A128KW, A192KW, A256KW encryption with A128CBC-HS256, A192CBC-HS384, A256CBC-HS512, A128GCM, A192GCM, A256GCM
+- PBES2-HS256+A128KW, PBES2-HS384+A192KW, PBES2-HS512+A256KW with A128CBC-HS256, A192CBC-HS384, A256CBC-HS512, A128GCM, A192GCM, A256GCM
 
 ##### Notes:
 \* It appears that Microsoft implementation of AsymmetricAlgorithmNames.RsaSignPssSha256, AsymmetricAlgorithmNames.RsaSignPssSha384 and AsymmetricAlgorithmNames.RsaSignPssSha512
@@ -143,6 +144,14 @@ byte[] aesKey = { 194, 164, 235, 6, 138, 248, 171, 239, 24, 216, 11, 22, 137, 19
 string token = JoseRT.Jwt.Encode(json, JwaAlgorithms.A128KW, JweAlgorithms.A128CBC_HS256, aesKey);
 ```
 
+#### PBES2 using HMAC SHA with AES Key Wrap key management family of algorithms
+PBES2-HS256+A128KW, PBES2-HS384+A192KW, PBES2-HS512+A256KW key management requires `string` passphrase from which key will be derived 
+
+```C#
+string json = @"{""hello"":""world""}";
+
+string token = JoseRT.Jwt.Encode(json, JwaAlgorithms.PBES2_HS512_A256KW, JweAlgorithms.A256CBC_HS512, "top secret");
+```
 
 ### Verifying and Decoding Tokens
 Decoding json web tokens is fully symmetric to creating signed or encrypted tokens:
@@ -227,6 +236,14 @@ cydwnEftq+3G0X3KSxp4p7R7afcnpNNqfneYODgoXxTQ4Q7ZyKo72A==
 -----END RSA PRIVATE KEY-----";
 
 string json = JoseRT.Jwt.Decode(token, JoseRT.Rsa.PrivateKey.Load(privateKey));
+```
+
+**PBES2-HS256+A128KW, PBES2-HS384+A192KW, PBES2-HS512+A256KW** key management algorithms expects `string` passpharase as a key
+
+```C#
+string token = "eyJhbGciOiJQQkVTMi1IUzI1NitBMTI4S1ciLCJlbmMiOiJBMjU2R0NNIiwicDJjIjo4MTkyLCJwMnMiOiJqVVozY0NEX2hMZ3pQVHVfIn0.cgEZLTNOoGgDJXhRj0Ca0DL_HTY2xRKzVpoRnOf_Yuxm6IsQJgf0NA.7sAUk5_ryTMO_hLB.y7arc1aQP1--WUwlUsti4SiW6O2nrmGviTYznPjw9KD9Tu4E4QQO3RCU1uo59qNF3jJ5Mgku5OXV8bJHlouMouUfZbEb2cHgH9GLwY7hbCuYfGBIEyZw6qnHCgLGatO59akKaVDa8fqPo5--V_q0T5Z3xWm7UpK8RHaR8z3kuSBEXI1JH-dgj1EikG0yHSxVkFiInrlNLGzhI-cMTSD5xfLlmhmTzqbdpNp947AQ7pix2IvkQdvdgCo3bbSQVUsSJrLZSg.cO4fVMmdniwtEikHv55cqQ";
+
+string json = JoseRT.Jwt.Decode(token, "top secret");
 ```
 
 ### Obtaining keys
