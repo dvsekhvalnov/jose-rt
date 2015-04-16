@@ -1,4 +1,5 @@
 ﻿using System;
+using Windows.Data.Json;
 
 namespace JoseRT.Util
 {
@@ -60,5 +61,10 @@ namespace JoseRT.Util
                 throw new ArgumentException(string.Format(msg, args));
         }
 
+        public static void Contains(JsonObject header, string name, string msg, params  object[] args)
+        {
+            if(!header.ContainsKey(name))
+                throw new ArgumentException(string.Format(msg, args));
+        }
     }
 }

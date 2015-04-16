@@ -2,10 +2,12 @@
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using Windows.Data.Json;
+using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
 using JoseRT.crypto;
 using JoseRT.Serialization;
 using JoseRT.Util;
+using Buffer = JoseRT.Util.Buffer;
 
 namespace JoseRT.Jwa
 {
@@ -13,14 +15,33 @@ namespace JoseRT.Jwa
     {
         private int keySizeBits;
 
-        public Pbse2HmacShaWithAesKWKeyManagement(int keySizeBits)
+        private AesKeyWrapManagement aesKW;
+
+        public Pbse2HmacShaWithAesKWKeyManagement(int keySizeBits, AesKeyWrapManagement aesKw)
         {
             this.keySizeBits = keySizeBits;
+            aesKW = aesKw;
         }
 
         public Part[] WrapNewKey(uint cekSizeBits, object key, JsonObject header)
         {
-            throw new System.NotImplementedException();
+            var sharedPassphrase = Ensure.Type<string>(key, "Pbse2HmacShaWithAesKWKeyManagement management algorithm expectes key to be string.");
+
+            byte[] sharedKey = Encoding.UTF8.GetBytes(sharedPassphrase);
+            byte[] algId = Encoding.UTF8.GetBytes(header["alg"].GetString());
+
+            const int iterationCount = 8192;
+            
+            var saltInput = Buffer.ToBytes(CryptographicBuffer.GenerateRandom(12));
+
+            header["p2c"] = JsonValue.CreateNumberValue(iterationCount);
+            header["p2s"] = JsonValue.CreateStringValue(Base64Url.Encode(saltInput));
+
+            byte[] salt = Arrays.Concat(algId, Arrays.Zero, saltInput);
+
+            byte[] kek=PBKDF2.DeriveKey(sharedKey, salt, iterationCount, keySizeBits, Prf);
+            
+            return aesKW.WrapNewKey(cekSizeBits, kek, header);
         }
 
         public byte[] Unwrap([ReadOnlyArray] byte[] encryptedCek, object key, uint cekSizeBits, JsonObject header)
@@ -29,8 +50,8 @@ namespace JoseRT.Jwa
 
             byte[] sharedKey = Encoding.UTF8.GetBytes(sharedPassphrase);
 
-//            Ensure.Contains(header, new[] { "p2c" }, "Pbse2HmacShaWithAesKWKeyManagement algorithm expects 'p2c' param in JWT header, but was not found");
-//            Ensure.Contains(header, new[] { "p2s" }, "Pbse2HmacShaWithAesKWKeyManagement algorithm expects 'p2s' param in JWT header, but was not found");
+            Ensure.Contains(header, "p2c", "Pbse2HmacShaWithAesKWKeyManagement algorithm expects 'p2c' param in JWT header, but was not found");
+            Ensure.Contains(header, "p2s", "Pbse2HmacShaWithAesKWKeyManagement algorithm expects 'p2s' param in JWT header, but was not found");
 
             byte[] algId = Encoding.UTF8.GetBytes(header["alg"].GetString());
             int iterationCount = (int)header["p2c"].GetNumber();
@@ -38,13 +59,9 @@ namespace JoseRT.Jwa
 
             byte[] salt = Arrays.Concat(algId, Arrays.Zero, saltInput);
 
-            byte[] kek;
-
-            kek = PBKDF2.DeriveKey(sharedKey, salt, iterationCount, keySizeBits, Prf);
-
-            throw new System.NotImplementedException();
-          //  return aesKW.Unwrap(encryptedCek, kek, cekSizeBits, header);
-            
+            byte[] kek = PBKDF2.DeriveKey(sharedKey, salt, iterationCount, keySizeBits, Prf);
+          
+            return aesKW.Unwrap(encryptedCek, kek, cekSizeBits, header);            
         }
 
         private MacAlgorithmProvider Prf 
@@ -63,14 +80,13 @@ namespace JoseRT.Jwa
         public string Name
         {
             get
-            {
-                throw new NotImplementedException();
-//                switch (keySizeBits)
-//                {
-//                    case 128: return JwaAlgorithms.PBES2_HS256_A128KW;
-//                    case 192: return JwaAlgorithms.PBES2_HS384_A192KW;
-//                    default: return JwaAlgorithms.PBES2_HS512_A256KW;
-//                }
+            {                
+                switch (keySizeBits)
+                {
+                    case 128: return JwaAlgorithms.PBES2_HS256_A128KW;
+                    case 192: return JwaAlgorithms.PBES2_HS384_A192KW;
+                    default: return JwaAlgorithms.PBES2_HS512_A256KW;
+                }
             }
 
         }
